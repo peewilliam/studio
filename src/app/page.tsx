@@ -26,7 +26,7 @@ curl -X POST '${baseUrl}/api/auth/login' \\
 
   const tokenResponseExample = `
 {
-  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoiUG93ZXJUcmFkZSIsImNsaWVudElkIjo0OTA0MywiaWF0IjoxNjQ4NjM2NjIwLCJleHAiOjE2NDg2NjU0MjB9.xxxxxxxxxxxx"
+  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoiUG93ZXJUcmFkZSIsImNsaWVudElkIjo0OTA0MywiaWF0IjoxNzIzNzQ4MjAwLCJleHAiOjE3MjM3NzcwMDB9.xxxxxxxxxxxx"
 }`;
 
   const curlTrackingExample = `
@@ -38,10 +38,10 @@ curl -X GET '${baseUrl}/api/tracking' \\
       <div className="text-center mb-10">
         <PackageSearch className="mx-auto h-20 w-20 text-primary mb-4" />
         <h1 className="text-4xl md:text-5xl font-bold font-headline text-primary mb-3">
-          Bem-vindo à TrackMaster API
+          Bem-vindo à ConLine - Sirius API
         </h1>
         <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto">
-          Sua solução RESTful para rastreamento de processos, segura e fácil de integrar.
+          Sua interface inteligente para acesso e acompanhamento de processos de comércio exterior.
         </p>
       </div>
 
@@ -141,15 +141,15 @@ curl -X GET '${baseUrl}/api/tracking' \\
 
       <div className="mt-12 text-center">
         <p className="text-muted-foreground text-sm">
-          Precisa de ajuda ou quer contribuir?
+          Precisa de ajuda ou quer saber mais?
         </p>
         <a
-          href="https://github.com" // Substitua pelo link real do GitHub, se disponível
+          href="https://conlinebr.com.br" 
           target="_blank"
           rel="noopener noreferrer"
           className="text-primary hover:text-accent transition-colors font-medium inline-flex items-center text-sm"
         >
-          <Github className="mr-2 h-4 w-4" /> Visite nosso GitHub (Exemplo)
+          <Github className="mr-2 h-4 w-4" /> Visite o site da ConLine
         </a>
          <p className="text-xs text-muted-foreground mt-2">
             Versão 1.0.0

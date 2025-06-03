@@ -18,7 +18,7 @@ const ApiDocsPage = () => {
     <div className="container mx-auto py-8 px-4 min-h-screen">
       <Card className="shadow-xl">
         <CardHeader>
-          <CardTitle className="text-3xl font-headline text-primary">Documentação da API TrackMaster</CardTitle>
+          <CardTitle className="text-3xl font-headline text-primary">Documentação da API ConLine - Sirius</CardTitle>
         </CardHeader>
         <CardContent>
           {specUrl ? (

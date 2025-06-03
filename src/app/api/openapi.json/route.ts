@@ -1,24 +1,22 @@
 import { NextResponse } from 'next/server';
 import swaggerJsdoc from 'swagger-jsdoc';
 
-// A função getServerUrl não é mais necessária, pois usaremos uma URL relativa.
-
 const swaggerOptions: swaggerJsdoc.Options = {
   definition: {
     openapi: '3.0.0',
     info: {
-      title: 'TrackMaster API',
+      title: 'ConLine - Sirius API',
       version: '1.0.0',
-      description: 'API de consulta de processos para parceiros, construída com Next.js e SQL Server. Segura, escalável e bem documentada.',
+      description: 'API Sirius da ConLine: Interface de integração para consulta e acompanhamento online de processos de comércio exterior gerenciados através do sistema Sirius.',
       contact: {
-        name: 'Suporte da API',
-        url: 'http://example.com/support', // Substitua pelo link real, se houver
-        email: 'support@example.com', // Substitua pelo email real, se houver
+        name: 'Suporte ConLine - Sirius API',
+        url: 'https://conlinebr.com.br', 
+        email: 'ti@conlinebr.com.br', 
       },
     },
     servers: [
       {
-        url: '/api', // Usar URL relativa. Swagger UI irá resolvê-la com base no host atual.
+        url: '/api', 
         description: 'Servidor da API (Relativo ao Host Atual)'
       }
     ],
@@ -32,14 +30,11 @@ const swaggerOptions: swaggerJsdoc.Options = {
         },
       },
       schemas: { 
-        // Schemas definidos em src/lib/dto/tracking.ts serão incluídos pelo glob 'apis'
       }
     },
     security: [ 
-      // { bearerAuth: [] } // Pode ser descomentado para aplicar segurança globalmente
     ],
   },
-  // Os paths para os arquivos contendo as definições da API (anotações JSDoc)
   apis: ['./src/app/api/**/route.ts', './src/lib/dto/**/*.ts'], 
 };
 

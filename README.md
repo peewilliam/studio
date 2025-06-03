@@ -1,10 +1,10 @@
-# Firebase Studio - TrackMaster API (PT-BR)
+# Firebase Studio - ConLine - Sirius API (PT-BR)
 
-Esta é uma aplicação de API de exemplo construída com NextJS no Firebase Studio, configurada para o idioma Português do Brasil (pt-BR).
+Esta é uma aplicação de API construída com NextJS no Firebase Studio, configurada para o idioma Português do Brasil (pt-BR).
 
 ## Visão Geral
 
-TrackMaster API é uma API RESTful moderna, segura e bem estruturada para rastreamento de processos, utilizando Next.js e SQL Server.
+A ConLine - Sirius API fornece uma interface de integração para o acompanhamento online dos seus processos de comércio exterior, conectando-se diretamente ao sistema Sirius da ConLine, focada em agilidade e segurança.
 
 ## Como Utilizar
 
@@ -22,7 +22,7 @@ A aplicação estará disponível em `http://localhost:3000` (ou a porta especif
 
 A documentação completa da API está disponível e pode ser acessada através da interface Swagger UI. Após iniciar a aplicação, navegue para:
 
-[http://localhost:3000/api-docs](http://localhost:3000/api-docs)
+[http://localhost:3000/api-docs](http://localhost:3000/api-docs) (ou o endereço correspondente se estiver usando uma porta diferente)
 
 Lá você encontrará todos os endpoints disponíveis, seus parâmetros, corpos de requisição, exemplos de resposta e os schemas dos dados.
 
@@ -46,7 +46,7 @@ A API retornará um token JWT. Este token deverá ser incluído no cabeçalho `A
 
 **Criação de Usuário:**
 
-**Importante**: Atualmente, **não há um endpoint ou funcionalidade para criação de novos usuários**. O sistema de autenticação utiliza as credenciais fixas (`PowerTrade`/`minhasenha`) exclusivamente para fins de demonstração e teste da API. Em uma aplicação de produção, um sistema completo de gerenciamento de usuários (com registro, perfis, etc.) seria necessário.
+**Importante**: Atualmente, **não há um endpoint ou funcionalidade para criação de novos usuários**. O sistema de autenticação utiliza as credenciais fixas (`PowerTrade`/`minhasenha`) exclusivamente para fins de demonstração e teste da API. Em uma aplicação de produção, um sistema completo de gerenciamento de usuários (com registro, perfis, etc.) seria necessário, integrado ao sistema de autenticação da ConLine.
 
 ### 4. Rastreamento de Processos
 
@@ -57,7 +57,7 @@ O principal endpoint para consulta é `/api/tracking`. Ele requer autenticação
 
 Consulte a [documentação da API](/api-docs) para mais detalhes sobre os parâmetros e o formato das respostas.
 
-## Tecnologias Utilizadas
+## Tecnologias Utilizadas (Estrutura Base)
 
 - Next.js (App Router)
 - React
@@ -65,7 +65,6 @@ Consulte a [documentação da API](/api-docs) para mais detalhes sobre os parâm
 - Tailwind CSS
 - ShadCN UI
 - SQL Server (via pacote `mssql`)
-- Genkit (para funcionalidades de IA, se aplicável no futuro)
 - Swagger/OpenAPI para documentação da API
 
 ## Estrutura do Projeto
@@ -82,12 +81,17 @@ Consulte a [documentação da API](/api-docs) para mais detalhes sobre os parâm
     -   `src/lib/services/trackingService.ts`: Lógica de negócios para buscar dados de rastreamento.
     -   `src/lib/middlewares/auth.ts`: Middleware de autenticação JWT.
     -   `src/lib/dto/tracking.ts`: Definições de schemas para Swagger.
--   `src/ai/`: Lógica relacionada a Genkit (se utilizada).
+
+## Suporte
+
+Para questões relacionadas à API, entre em contato:
+- Email: ti@conlinebr.com.br
+- Website: [https://conlinebr.com.br](https://conlinebr.com.br)
 
 ## Próximos Passos (Sugestões para Desenvolvimento Futuro)
 
-- Implementar um sistema completo de gerenciamento de usuários (registro, recuperação de senha, diferentes perfis de acesso).
-- Expandir as funcionalidades de rastreamento com mais filtros ou detalhes.
+- Implementar um sistema completo de gerenciamento de usuários integrado ao sistema ConLine (registro, recuperação de senha, diferentes perfis de acesso).
+- Expandir as funcionalidades de rastreamento com mais filtros ou detalhes, conforme necessidades da ConLine.
 - Adicionar testes unitários e de integração.
 - Configurar variáveis de ambiente de forma mais robusta para ambientes de produção (ex: utilizando `.env.production`).
 - Melhorar o tratamento de erros e logging.

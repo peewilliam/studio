@@ -3,8 +3,8 @@ import './globals.css';
 import { Toaster } from "@/components/ui/toaster";
 
 export const metadata: Metadata = {
-  title: 'TrackMaster API - Rastreamento de Processos',
-  description: 'API para rastreamento de processos, construída com Next.js e SQL Server',
+  title: 'ConLine - Sirius API - Rastreamento de Processos',
+  description: 'API Sirius da ConLine para consulta e acompanhamento de processos de comércio exterior.',
 };
 
 export default function RootLayout({
