@@ -6,6 +6,7 @@ const config: sql.config = {
   password: process.env.DB_PASS,
   server: process.env.DB_SERVER!, // The exclamation mark asserts that DB_SERVER is not undefined
   database: process.env.DB_NAME,
+  port: Number(process.env.SQL_PORT),
   options: {
     encrypt: process.env.DB_ENCRYPT === 'true', // Assuming DB_ENCRYPT is 'true' or 'false' in .env
     trustServerCertificate: process.env.DB_TRUST_SERVER_CERTIFICATE === 'true', // Same assumption

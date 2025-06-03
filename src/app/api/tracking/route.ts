@@ -1,3 +1,4 @@
+
 import { NextRequest, NextResponse } from 'next/server';
 import { authenticateRequest } from '@/lib/middlewares/auth';
 import { getTracking } from '@/lib/services/trackingService';
@@ -16,16 +17,19 @@ import 'dotenv/config';
  *         name: referencia
  *         schema:
  *           type: string
- *         description: Número de referência opcional (Numero_Processo ou Referencia_Cliente)
+ *         required: false
+ *         description: Número de referência opcional (Numero_Processo ou Referencia_Cliente) para filtrar um processo específico. Se não fornecido, retorna todos os eventos de tracking para o cliente.
  *     responses:
  *       200:
- *         description: Dados de rastreamento recuperados com sucesso
+ *         description: Dados de rastreamento recuperados com sucesso. A estrutura da resposta varia; se 'referencia' for fornecida, retorna um objeto {process, follow}. Caso contrário, retorna um array de todos os eventos de tracking (TrackingItem).
  *         content:
  *           application/json:
  *             schema:
- *               type: array
- *               items:
- *                 $ref: '#/components/schemas/TrackingItem'
+ *               oneOf:
+ *                 - $ref: '#/components/schemas/TrackingResponseByReferencia'
+ *                 - type: array
+ *                   items:
+ *                     $ref: '#/components/schemas/TrackingItem'
  *       401:
  *         description: Token de autenticação ausente ou inválido
  *         content:
@@ -58,6 +62,10 @@ export async function GET(req: NextRequest) {
     const referencia = searchParams.get('referencia') || undefined;
 
     const data = await getTracking({ referencia }, user.clientId);
+    
+    // Se 'referencia' foi usada e 'process' é null, poderia ser um 404, mas a lógica atual do serviço retorna {process: null, follow: []}
+    // Para consistência com o retorno quando a referência não é usada (que pode ser um array vazio),
+    // retornar 200 com os dados (ou {process: null, follow: []}) é aceitável.
     return NextResponse.json(data);
   } catch (error) {
     console.error('Erro ao buscar dados de tracking:', error);
