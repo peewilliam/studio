@@ -9,7 +9,7 @@ export default function HomePage() {
       <div className="text-center mb-12">
         <Zap className="mx-auto h-24 w-24 text-primary mb-4" />
         <h1 className="text-5xl font-bold font-headline text-primary mb-3">
-          Bem-vindo à TrackMaster API
+          Bem-vindo à TrackMaster APIs
         </h1>
         <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
           Uma API RESTful moderna, segura e bem estruturada para rastreamento de processos.
