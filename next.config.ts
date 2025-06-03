@@ -1,3 +1,4 @@
+
 import type {NextConfig} from 'next';
 
 const nextConfig: NextConfig = {
@@ -32,6 +33,17 @@ const nextConfig: NextConfig = {
         ],
       },
     ];
+  },
+  experimental: {
+    outputFileTracingIncludes: {
+      // A chave é o pathname da rota da API
+      '/api/openapi.json': [
+        // Inclui todos os arquivos de rota da API
+        './src/app/api/**/*.ts',
+        // Inclui todos os arquivos DTO
+        './src/lib/dto/**/*.ts'
+      ],
+    },
   },
 };
 
