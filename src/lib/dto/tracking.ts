@@ -4,57 +4,61 @@
  *   schemas:
  *     TrackingItem:
  *       type: object
+ *       description: Representa um item individual de rastreamento de processo.
  *       properties:
  *         IdProcesso:
  *           type: integer
- *           description: Unique identifier for the tracking process.
+ *           description: Identificador único para o processo de rastreamento.
+ *           example: 12345
  *         Numero_Processo:
  *           type: string
- *           description: Process number.
+ *           description: Número oficial do processo.
+ *           example: "PROC-2024-001"
  *         Referencia_Cliente:
  *           type: string
- *           description: Client's reference for the process.
+ *           description: Referência interna do cliente para o processo.
+ *           example: "CLIENTREF-001"
  *         IdCliente:
  *           type: integer
- *           description: Client ID.
+ *           description: Identificador único do cliente.
+ *           example: 49043
  *         IdImportador:
  *           type: integer
- *           description: Importer ID.
+ *           nullable: true
+ *           description: Identificador único do importador (se aplicável).
+ *           example: 49043
  *         IdExportador:
  *           type: integer
- *           description: Exporter ID.
+ *           nullable: true
+ *           description: Identificador único do exportador (se aplicável).
+ *           example: null
  *         Data:
  *           type: string
  *           format: date-time
- *           description: Timestamp of the tracking event.
+ *           description: Timestamp do evento de rastreamento (data e hora).
+ *           example: "2024-07-29T10:30:00Z"
  *         Status:
  *           type: string
- *           description: Current status of the process.
+ *           description: Status atual do processo.
+ *           example: "Em Trânsito"
  *         DescricaoEvento:
  *           type: string
- *           description: Description of the tracking event.
- *       example:
- *         IdProcesso: 12345
- *         Numero_Processo: "PROC-2024-001"
- *         Referencia_Cliente: "CLIENTREF-001"
- *         IdCliente: 49043
- *         IdImportador: 49043
- *         IdExportador: null
- *         Data: "2024-07-29T10:30:00Z"
- *         Status: "In Transit"
- *         DescricaoEvento: "Shipment left port"
+ *           description: Descrição detalhada do evento de rastreamento.
+ *           example: "Embarque saiu do porto de origem"
  * 
  *     ErrorResponse:
  *       type: object
+ *       description: Estrutura padrão para respostas de erro da API.
  *       properties:
  *         message:
  *           type: string
- *           description: A human-readable error message.
+ *           description: Uma mensagem de erro legível por humanos.
  *         error:
  *           type: string
- *           description: Optional technical error detail.
+ *           nullable: true
+ *           description: Detalhe técnico opcional do erro.
  *       example:
- *         message: "Invalid credentials"
- *         error: "Authentication failed"
+ *         message: "Credenciais inválidas"
+ *         error: "Falha na autenticação do usuário"
  */
-export {}; // This file is primarily for JSDoc type definitions for Swagger
+export {}; // Este arquivo é primariamente para definições de tipo JSDoc para Swagger

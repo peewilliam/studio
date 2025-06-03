@@ -7,7 +7,7 @@ import 'dotenv/config';
  * @swagger
  * /api/tracking:
  *   get:
- *     summary: Get tracking information for the authenticated client
+ *     summary: Obtém informações de rastreamento para o cliente autenticado
  *     tags: [Tracking]
  *     security:
  *       - bearerAuth: []
@@ -16,37 +16,22 @@ import 'dotenv/config';
  *         name: referencia
  *         schema:
  *           type: string
- *         description: Optional reference number (Numero_Processo or Referencia_Cliente)
+ *         description: Número de referência opcional (Numero_Processo ou Referencia_Cliente)
  *     responses:
  *       200:
- *         description: Tracking data retrieved successfully
+ *         description: Dados de rastreamento recuperados com sucesso
  *         content:
  *           application/json:
  *             schema:
  *               type: array
  *               items:
- *                 type: object
- *                 properties:
- *                   IdCliente:
- *                     type: integer
- *                   IdImportador:
- *                     type: integer
- *                   IdExportador:
- *                     type: integer
- *                   Numero_Processo:
- *                     type: string
- *                   Referencia_Cliente:
- *                     type: string
- *                   Data:
- *                     type: string
- *                     format: date-time
- *                   # Add other relevant fields from vis_Tracking_Portal_Follow_API
+ *                 $ref: '#/components/schemas/TrackingItem'
  *       401:
- *         description: Authentication token missing or invalid
+ *         description: Token de autenticação ausente ou inválido
  *       403:
- *         description: Forbidden, token invalid or expired
+ *         description: Proibido, token inválido ou expirado
  *       500:
- *         description: Server error
+ *         description: Erro no servidor
  */
 export async function GET(req: NextRequest) {
   const authResult = await authenticateRequest(req);
@@ -63,8 +48,8 @@ export async function GET(req: NextRequest) {
     const data = await getTracking({ referencia }, user.clientId);
     return NextResponse.json(data);
   } catch (error) {
-    console.error('Tracking data retrieval error:', error);
-    const errorMessage = error instanceof Error ? error.message : 'An unexpected error occurred';
+    console.error('Erro ao buscar dados de tracking:', error);
+    const errorMessage = error instanceof Error ? error.message : 'Ocorreu um erro inesperado';
     return NextResponse.json({ message: 'Erro ao buscar dados de tracking', error: errorMessage }, { status: 500 });
   }
 }

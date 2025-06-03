@@ -6,7 +6,7 @@ import 'dotenv/config';
  * @swagger
  * /api/auth/login:
  *   post:
- *     summary: Authenticate user and get JWT token
+ *     summary: Autentica o usuário e obtém um token JWT
  *     tags: [Auth]
  *     requestBody:
  *       required: true
@@ -26,7 +26,7 @@ import 'dotenv/config';
  *                 example: minhasenha
  *     responses:
  *       200:
- *         description: Authentication successful, token returned
+ *         description: Autenticação bem-sucedida, token retornado
  *         content:
  *           application/json:
  *             schema:
@@ -35,18 +35,19 @@ import 'dotenv/config';
  *                 token:
  *                   type: string
  *       401:
- *         description: Invalid credentials
+ *         description: Credenciais inválidas
  *       500:
- *         description: Server error
+ *         description: Erro no servidor
  */
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
     const { username, password } = body;
 
-    // In a real application, validate credentials against a database
+    // Em uma aplicação real, valide as credenciais contra um banco de dados.
+    // Para esta demonstração, as credenciais são fixas.
     if (username === 'PowerTrade' && password === 'minhasenha') {
-      // For demo purposes, hardcoding clientId. In real app, fetch from user's record.
+      // Para fins de demonstração, o clientId é fixo. Em uma aplicação real, obtenha do registro do usuário.
       const clientId = 49043; 
       const userPayload = { user: username, clientId: clientId };
       
@@ -56,8 +57,8 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ message: 'Credenciais inválidas' }, { status: 401 });
     }
   } catch (error) {
-    console.error('Login error:', error);
-    const errorMessage = error instanceof Error ? error.message : 'An unexpected error occurred';
+    console.error('Erro no login:', error);
+    const errorMessage = error instanceof Error ? error.message : 'Ocorreu um erro inesperado';
     return NextResponse.json({ message: 'Erro no servidor', error: errorMessage }, { status: 500 });
   }
 }

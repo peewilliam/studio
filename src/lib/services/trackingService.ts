@@ -26,7 +26,7 @@ export async function getTracking(params: TrackingParams, clientId: number) {
     const result = await request.query(query);
     return result.recordset;
   } catch (error) {
-    console.error("SQL Error in getTracking:", error);
-    throw new Error("Failed to retrieve tracking data from database.");
+    console.error("Erro SQL em getTracking:", error);
+    throw new Error("Falha ao recuperar dados de rastreamento do banco de dados.");
   }
 }

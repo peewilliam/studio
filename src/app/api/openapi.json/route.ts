@@ -1,15 +1,13 @@
 import { NextResponse } from 'next/server';
 import swaggerJsdoc from 'swagger-jsdoc';
 
-// Determine server URL based on environment
 const getServerUrl = () => {
   if (process.env.NEXT_PUBLIC_API_BASE_URL) {
     return process.env.NEXT_PUBLIC_API_BASE_URL;
   }
-  if (process.env.VERCEL_URL) { // Vercel deployment
+  if (process.env.VERCEL_URL) { 
     return `https://${process.env.VERCEL_URL}`;
   }
-  // Fallback for local development or other environments
   const port = process.env.PORT || 3000;
   return `http://localhost:${port}`;
 };
@@ -21,9 +19,9 @@ const swaggerOptions: swaggerJsdoc.Options = {
     info: {
       title: 'TrackMaster API',
       version: '1.0.0',
-      description: 'API de consulta de processos para parceiros, construída com Next.js e SQL Server. Secure, scalable, and well-documented.',
+      description: 'API de consulta de processos para parceiros, construída com Next.js e SQL Server. Segura, escalável e bem documentada.',
       contact: {
-        name: 'API Support',
+        name: 'Suporte da API',
         url: 'http://example.com/support',
         email: 'support@example.com',
       },
@@ -31,7 +29,7 @@ const swaggerOptions: swaggerJsdoc.Options = {
     servers: [
       {
         url: `${getServerUrl()}/api`,
-        description: 'Current Environment Server'
+        description: 'Servidor do Ambiente Atual'
       }
     ],
     components: {
@@ -40,17 +38,18 @@ const swaggerOptions: swaggerJsdoc.Options = {
           type: 'http',
           scheme: 'bearer',
           bearerFormat: 'JWT',
-          description: 'Enter JWT token in the format: Bearer {token}'
+          description: 'Insira o token JWT no formato: Bearer {token}'
         },
       },
+      schemas: { // Ensure schemas from DTOs are included
+        // Schemas defined in src/lib/dto/tracking.ts will be picked up by apis glob
+      }
     },
-    security: [ // You can apply security globally or per-operation
-      // { bearerAuth: [] } // Uncomment to apply globally once login is confirmed working
+    security: [ 
+      // { bearerAuth: [] } // Descomente para aplicar globalmente após a confirmação do funcionamento do login
     ],
   },
-  // Path to the API docs
-  // Note: glob patterns are relative to the current working directory when swaggerJsdoc is called
-  apis: ['./src/app/api/**/route.ts'], 
+  apis: ['./src/app/api/**/route.ts', './src/lib/dto/**/*.ts'], 
 };
 
 export async function GET() {
@@ -58,7 +57,7 @@ export async function GET() {
     const openapiSpecification = swaggerJsdoc(swaggerOptions);
     return NextResponse.json(openapiSpecification);
   } catch (error) {
-    console.error("Error generating OpenAPI spec:", error);
-    return NextResponse.json({ message: "Error generating OpenAPI spec" }, { status: 500 });
+    console.error("Erro ao gerar especificação OpenAPI:", error);
+    return NextResponse.json({ message: "Erro ao gerar especificação OpenAPI" }, { status: 500 });
   }
 }

@@ -10,8 +10,6 @@ const ApiDocsPage = () => {
   const [specUrl, setSpecUrl] = useState<string | null>(null);
 
   useEffect(() => {
-    // Construct the URL dynamically to ensure it works in different environments
-    // Assumes this page is served from the root of the domain or a known base path.
     const currentOrigin = window.location.origin;
     setSpecUrl(`${currentOrigin}/api/openapi.json`);
   }, []);
@@ -20,7 +18,7 @@ const ApiDocsPage = () => {
     <div className="container mx-auto py-8 px-4 min-h-screen">
       <Card className="shadow-xl">
         <CardHeader>
-          <CardTitle className="text-3xl font-headline text-primary">TrackMaster API Documentation</CardTitle>
+          <CardTitle className="text-3xl font-headline text-primary">Documentação da API TrackMaster</CardTitle>
         </CardHeader>
         <CardContent>
           {specUrl ? (
