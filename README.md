@@ -30,7 +30,7 @@ Lá você encontrará todos os endpoints disponíveis, seus parâmetros, corpos 
 
 **Login:**
 
-Para interagir com os endpoints protegidos da API (como `/api/tracking`), você precisará de um token JWT. Faça uma requisição `POST` para o endpoint `/api/auth/login` com as seguintes credenciais (fixas para demonstração):
+Para interagir com os endpoints protegidos da API (como `/api/tracking`), você precisará de um token JWT. Faça uma requisição `POST` para o endpoint `/api/auth/login` com as seguintes credenciais de demonstração:
 
 -   **username**: `sirius`
 -   **password**: `proximos`
@@ -42,11 +42,11 @@ Exemplo de corpo da requisição:
   "password": "proximos"
 }
 ```
-A API retornará um token JWT. Este token deverá ser incluído no cabeçalho `Authorization` de requisições subsequentes aos endpoints protegidos, no formato `Bearer {seu_token}`.
+A API retornará um token JWT. Este token deverá ser incluído no cabeçalho `Authorization` de requisições subsequentes aos endpoints protegidos, no formato `Bearer {seu_token}`. O sistema agora suporta múltiplos usuários de demonstração; consulte seu contato na ConLine para credenciais adicionais, se necessário.
 
 **Criação de Usuário:**
 
-**Importante**: Atualmente, **não há um endpoint ou funcionalidade para criação de novos usuários**. O sistema de autenticação utiliza as credenciais fixas (`sirius`/`proximos`) exclusivamente para fins de demonstração e teste da API. Em uma aplicação de produção, um sistema completo de gerenciamento de usuários (com registro, perfis, etc.) seria necessário, integrado ao sistema de autenticação da ConLine.
+**Importante**: Atualmente, **não há um endpoint ou funcionalidade para criação de novos usuários**. O sistema de autenticação utiliza um conjunto de credenciais de demonstração (como `sirius`/`proximos`) exclusivamente para fins de teste da API. Em uma aplicação de produção, um sistema completo de gerenciamento de usuários (com registro, perfis, etc.) seria necessário, integrado ao sistema de autenticação da ConLine.
 
 ### 4. Rastreamento de Processos
 

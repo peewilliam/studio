@@ -26,7 +26,7 @@ curl -X POST '${baseUrl}/api/auth/login' \\
 
   const tokenResponseExample = `
 {
-  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoic2lyaXVzIiwiY2xpZW50SWQiOjQ5MDQzLCJpYXQiOjE3MjM4MTc0MDIsImV4cCI6MTcyMzg0NjIwMn0.xxxxxxxxxxxx"
+  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoic2lyaXVzIiwiY2xpZW50SWQiOjQ5MDQzLCJuYW1lIjoiU2lyaXVzIFByaW5jaXBhbCIsImlhdCI6MTcyMzgxNzQwMiwiZXhwIjoxNzIzODQ2MjAyfQ.xxxxxxxxxxxx"
 }`;
 
   const curlTrackingExample = `
@@ -76,7 +76,7 @@ curl -X GET '${baseUrl}/api/tracking' \\
             <div className="flex items-start p-3 bg-blue-50 border border-blue-200 rounded-md">
               <Info className="h-5 w-5 text-blue-600 mr-2 mt-0.5 flex-shrink-0" />
               <p className="text-xs text-blue-700">
-                As credenciais de demonstração fornecem acesso a um conjunto limitado de dados para teste. Para acesso completo e integrado, entre em contato com a ConLine.
+                As credenciais de demonstração fornecem acesso a um conjunto limitado de dados para teste. O sistema agora suporta múltiplos usuários de demonstração; consulte seu contato na ConLine para credenciais adicionais, se necessário.
               </p>
             </div>
             <div>
@@ -150,7 +150,7 @@ curl -X GET '${baseUrl}/api/tracking' \\
           Precisa de ajuda ou quer saber mais?
         </p>
         <a
-          href="https://conlinebr.com.br" 
+          href="https://conlinebr.com.br"
           target="_blank"
           rel="noopener noreferrer"
           className="text-primary hover:text-accent transition-colors font-medium inline-flex items-center text-sm"

@@ -1,6 +1,15 @@
+
 import { NextRequest, NextResponse } from 'next/server';
 import jwt from 'jsonwebtoken';
 import 'dotenv/config';
+
+// Array de usuários de demonstração
+// Em uma aplicação real, estes dados viriam de um banco de dados.
+const demoUsers = [
+  { username: 'sirius', password: 'proximos', clientId: 49043, name: 'Sirius Principal' },
+  // Adicione mais usuários de demonstração aqui, se necessário:
+  // { username: 'outro_usuario', password: 'outra_senha', clientId: 12345, name: 'Outro Cliente' },
+];
 
 /**
  * @swagger
@@ -52,12 +61,12 @@ export async function POST(req: NextRequest) {
     const body = await req.json();
     const { username, password } = body;
 
-    // Em uma aplicação real, valide as credenciais contra um banco de dados.
-    // Para esta demonstração, as credenciais são fixas.
-    if (username === 'sirius' && password === 'proximos') {
-      // Para fins de demonstração, o clientId é fixo. Em uma aplicação real, obtenha do registro do usuário.
-      const clientId = 49043; 
-      const userPayload = { user: username, clientId: clientId };
+    const foundUser = demoUsers.find(
+      (user) => user.username === username && user.password === password
+    );
+
+    if (foundUser) {
+      const userPayload = { user: foundUser.username, clientId: foundUser.clientId, name: foundUser.name };
       
       const token = jwt.sign(userPayload, process.env.JWT_SECRET!, { expiresIn: '8h' });
       return NextResponse.json({ token });
