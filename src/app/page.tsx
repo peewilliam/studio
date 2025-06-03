@@ -1,12 +1,23 @@
 
+'use client';
+
+import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { FileText, Github, KeyRound, ArrowRightCircle, ShieldCheck, TerminalSquare, PackageSearch } from "lucide-react";
 import Link from "next/link";
 
 export default function HomePage() {
+  const [baseUrl, setBaseUrl] = useState('');
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      setBaseUrl(window.location.origin);
+    }
+  }, []);
+
   const curlLoginExample = `
-curl -X POST 'http://SEU_DOMINIO_AQUI/api/auth/login' \\
+curl -X POST '${baseUrl}/api/auth/login' \\
   -H 'Content-Type: application/json' \\
   -d '{
     "username": "PowerTrade",
@@ -19,7 +30,7 @@ curl -X POST 'http://SEU_DOMINIO_AQUI/api/auth/login' \\
 }`;
 
   const curlTrackingExample = `
-curl -X GET 'http://SEU_DOMINIO_AQUI/api/tracking' \\
+curl -X GET '${baseUrl}/api/tracking' \\
   -H 'Authorization: Bearer SEU_TOKEN_JWT_AQUI'`;
 
   return (
@@ -65,11 +76,13 @@ curl -X GET 'http://SEU_DOMINIO_AQUI/api/tracking' \\
             <div>
               <h3 className="font-semibold mb-1">Exemplo de Requisição (cURL):</h3>
               <pre className="bg-muted p-3 rounded-md text-xs overflow-x-auto">
-                <code className="language-bash">{curlLoginExample.trim()}</code>
+                <code className="language-bash">{baseUrl ? curlLoginExample.trim() : 'Carregando exemplo...'}</code>
               </pre>
-              <p className="text-xs text-muted-foreground mt-1">
-                Substitua <code className="bg-muted px-1 py-0.5 rounded text-xs">SEU_DOMINIO_AQUI</code> pelo domínio atual da aplicação (ex: localhost:3000).
-              </p>
+              {!baseUrl && (
+                <p className="text-xs text-muted-foreground mt-1">
+                  Aguarde enquanto o exemplo de URL é carregado...
+                </p>
+              )}
             </div>
             <div>
               <h3 className="font-semibold mb-1">Exemplo de Resposta (Token JWT):</h3>
@@ -93,10 +106,11 @@ curl -X GET 'http://SEU_DOMINIO_AQUI/api/tracking' \\
             <div>
               <h3 className="font-semibold mb-1">Exemplo de Requisição (cURL para /api/tracking):</h3>
               <pre className="bg-muted p-3 rounded-md text-xs overflow-x-auto">
-                <code className="language-bash">{curlTrackingExample.trim()}</code>
+                <code className="language-bash">{baseUrl ? curlTrackingExample.trim() : 'Carregando exemplo...'}</code>
               </pre>
               <p className="text-xs text-muted-foreground mt-1">
-                Substitua <code className="bg-muted px-1 py-0.5 rounded text-xs">SEU_DOMINIO_AQUI</code> e <code className="bg-muted px-1 py-0.5 rounded text-xs">SEU_TOKEN_JWT_AQUI</code>.
+                Substitua <code className="bg-muted px-1 py-0.5 rounded text-xs">SEU_TOKEN_JWT_AQUI</code> pelo token obtido no Passo 1.
+                {!baseUrl && "Aguarde enquanto o exemplo de URL é carregado..."}
               </p>
             </div>
             <p className="text-sm text-muted-foreground">
@@ -144,5 +158,3 @@ curl -X GET 'http://SEU_DOMINIO_AQUI/api/tracking' \\
     </main>
   );
 }
-
-    
