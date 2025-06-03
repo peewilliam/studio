@@ -4,7 +4,7 @@ import { Toaster } from "@/components/ui/toaster";
 
 export const metadata: Metadata = {
   title: 'ConLine - Sirius API - Rastreamento de Processos',
-  description: 'API Sirius da ConLine para consulta e acompanhamento de processos de comércio exterior.',
+  description: 'API Sirius da ConLine para consulta e acompanhamento de processos.',
 };
 
 export default function RootLayout({

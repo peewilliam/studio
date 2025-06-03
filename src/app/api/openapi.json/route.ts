@@ -7,7 +7,7 @@ const swaggerOptions: swaggerJsdoc.Options = {
     info: {
       title: 'ConLine - Sirius API',
       version: '1.0.0',
-      description: 'API Sirius da ConLine: Interface de integração para consulta e acompanhamento online de processos de comércio exterior gerenciados através do sistema Sirius.',
+      description: 'API Sirius da ConLine: Interface de integração para consulta e acompanhamento online de processos gerenciados através do sistema Sirius.',
       contact: {
         name: 'Suporte ConLine - Sirius API',
         url: 'https://conlinebr.com.br', 

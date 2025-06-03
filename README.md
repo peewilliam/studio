@@ -4,7 +4,7 @@ Esta é uma aplicação de API construída com NextJS no Firebase Studio, config
 
 ## Visão Geral
 
-A ConLine - Sirius API fornece uma interface de integração para o acompanhamento online dos seus processos de comércio exterior, conectando-se diretamente ao sistema Sirius da ConLine, focada em agilidade e segurança.
+A ConLine - Sirius API fornece uma interface de integração para o acompanhamento online dos seus processos, conectando-se diretamente ao sistema Sirius da ConLine, focada em agilidade e segurança.
 
 ## Como Utilizar
 

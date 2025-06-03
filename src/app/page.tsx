@@ -41,7 +41,7 @@ curl -X GET '${baseUrl}/api/tracking' \\
           Bem-vindo à ConLine - Sirius API
         </h1>
         <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto">
-          API Sirius da ConLine: Interface de integração para consulta e acompanhamento online de processos de comércio exterior gerenciados através do sistema Sirius.
+          API Sirius da ConLine: Interface de integração para consulta e acompanhamento online de processos gerenciados através do sistema Sirius.
         </p>
       </div>
 
@@ -76,7 +76,7 @@ curl -X GET '${baseUrl}/api/tracking' \\
             <div className="flex items-start p-3 bg-blue-50 border border-blue-200 rounded-md">
               <Info className="h-5 w-5 text-blue-600 mr-2 mt-0.5 flex-shrink-0" />
               <p className="text-xs text-blue-700">
-                As credenciais de demonstração fornecem acesso a um conjunto limitado de dados para teste. O sistema agora suporta múltiplos usuários de demonstração; consulte seu contato na ConLine para credenciais adicionais, se necessário.
+                As credenciais de demonstração fornecem acesso a um conjunto limitado de dados para teste. Consulte seu contato na ConLine para credenciais, se necessário.
               </p>
             </div>
             <div>
@@ -131,7 +131,7 @@ curl -X GET '${baseUrl}/api/tracking' \\
               <FileText className="mr-3 h-7 w-7 text-primary" /> Documentação Completa da API
             </CardTitle>
             <CardDescription>
-              Explore todos os endpoints, schemas e detalhes técnicos na nossa documentação interativa Swagger/OpenAPI.
+              Explore todos os endpoints, schemas e detalhes técnicos na nossa documentação interativa.
             </CardDescription>
           </CardHeader>
           <CardContent className="flex justify-center">
