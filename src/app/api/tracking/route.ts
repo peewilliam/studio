@@ -5,7 +5,7 @@ import 'dotenv/config';
 
 /**
  * @swagger
- * /api/tracking:
+ * /tracking:
  *   get:
  *     summary: Obtém informações de rastreamento para o cliente autenticado
  *     tags: [Tracking]
@@ -28,10 +28,22 @@ import 'dotenv/config';
  *                 $ref: '#/components/schemas/TrackingItem'
  *       401:
  *         description: Token de autenticação ausente ou inválido
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/ErrorResponse'
  *       403:
  *         description: Proibido, token inválido ou expirado
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/ErrorResponse'
  *       500:
  *         description: Erro no servidor
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/ErrorResponse'
  */
 export async function GET(req: NextRequest) {
   const authResult = await authenticateRequest(req);

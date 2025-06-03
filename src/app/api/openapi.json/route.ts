@@ -1,17 +1,7 @@
 import { NextResponse } from 'next/server';
 import swaggerJsdoc from 'swagger-jsdoc';
 
-const getServerUrl = () => {
-  if (process.env.NEXT_PUBLIC_API_BASE_URL) {
-    return process.env.NEXT_PUBLIC_API_BASE_URL;
-  }
-  if (process.env.VERCEL_URL) { 
-    return `https://${process.env.VERCEL_URL}`;
-  }
-  const port = process.env.PORT || 3000;
-  return `http://localhost:${port}`;
-};
-
+// A função getServerUrl não é mais necessária, pois usaremos uma URL relativa.
 
 const swaggerOptions: swaggerJsdoc.Options = {
   definition: {
@@ -22,14 +12,14 @@ const swaggerOptions: swaggerJsdoc.Options = {
       description: 'API de consulta de processos para parceiros, construída com Next.js e SQL Server. Segura, escalável e bem documentada.',
       contact: {
         name: 'Suporte da API',
-        url: 'http://example.com/support',
-        email: 'support@example.com',
+        url: 'http://example.com/support', // Substitua pelo link real, se houver
+        email: 'support@example.com', // Substitua pelo email real, se houver
       },
     },
     servers: [
       {
-        url: `${getServerUrl()}/api`,
-        description: 'Servidor do Ambiente Atual'
+        url: '/api', // Usar URL relativa. Swagger UI irá resolvê-la com base no host atual.
+        description: 'Servidor da API (Relativo ao Host Atual)'
       }
     ],
     components: {
@@ -41,14 +31,15 @@ const swaggerOptions: swaggerJsdoc.Options = {
           description: 'Insira o token JWT no formato: Bearer {token}'
         },
       },
-      schemas: { // Ensure schemas from DTOs are included
-        // Schemas defined in src/lib/dto/tracking.ts will be picked up by apis glob
+      schemas: { 
+        // Schemas definidos em src/lib/dto/tracking.ts serão incluídos pelo glob 'apis'
       }
     },
     security: [ 
-      // { bearerAuth: [] } // Descomente para aplicar globalmente após a confirmação do funcionamento do login
+      // { bearerAuth: [] } // Pode ser descomentado para aplicar segurança globalmente
     ],
   },
+  // Os paths para os arquivos contendo as definições da API (anotações JSDoc)
   apis: ['./src/app/api/**/route.ts', './src/lib/dto/**/*.ts'], 
 };
 

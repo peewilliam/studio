@@ -4,7 +4,7 @@ import 'dotenv/config';
 
 /**
  * @swagger
- * /api/auth/login:
+ * /auth/login:
  *   post:
  *     summary: Autentica o usuário e obtém um token JWT
  *     tags: [Auth]
@@ -36,8 +36,16 @@ import 'dotenv/config';
  *                   type: string
  *       401:
  *         description: Credenciais inválidas
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/ErrorResponse'
  *       500:
  *         description: Erro no servidor
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/ErrorResponse'
  */
 export async function POST(req: NextRequest) {
   try {
