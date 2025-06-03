@@ -4,7 +4,7 @@
 import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-import { FileText, Github, KeyRound, ArrowRightCircle, ShieldCheck, TerminalSquare, PackageSearch } from "lucide-react";
+import { FileText, Github, KeyRound, ArrowRightCircle, ShieldCheck, TerminalSquare, PackageSearch, Info } from "lucide-react";
 import Link from "next/link";
 
 export default function HomePage() {
@@ -20,13 +20,13 @@ export default function HomePage() {
 curl -X POST '${baseUrl}/api/auth/login' \\
   -H 'Content-Type: application/json' \\
   -d '{
-    "username": "PowerTrade",
-    "password": "minhasenha"
+    "username": "sirius",
+    "password": "proximos"
   }'`;
 
   const tokenResponseExample = `
 {
-  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoiUG93ZXJUcmFkZSIsImNsaWVudElkIjo0OTA0MywiaWF0IjoxNzIzNzQ4MjAwLCJleHAiOjE3MjM3NzcwMDB9.xxxxxxxxxxxx"
+  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoic2lyaXVzIiwiY2xpZW50SWQiOjQ5MDQzLCJpYXQiOjE3MjM4MTc0MDIsImV4cCI6MTcyMzg0NjIwMn0.xxxxxxxxxxxx"
 }`;
 
   const curlTrackingExample = `
@@ -41,7 +41,7 @@ curl -X GET '${baseUrl}/api/tracking' \\
           Bem-vindo à ConLine - Sirius API
         </h1>
         <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto">
-          Sua interface inteligente para acesso e acompanhamento de processos de comércio exterior.
+          API Sirius da ConLine: Interface de integração para consulta e acompanhamento online de processos de comércio exterior gerenciados através do sistema Sirius.
         </p>
       </div>
 
@@ -70,8 +70,14 @@ curl -X GET '${baseUrl}/api/tracking' \\
           <CardContent className="space-y-4">
             <div>
               <h3 className="font-semibold mb-1">Credenciais de Demonstração:</h3>
-              <p className="text-sm">Usuário: <code className="bg-muted px-1 py-0.5 rounded">PowerTrade</code></p>
-              <p className="text-sm">Senha: <code className="bg-muted px-1 py-0.5 rounded">minhasenha</code></p>
+              <p className="text-sm">Usuário: <code className="bg-muted px-1 py-0.5 rounded">sirius</code></p>
+              <p className="text-sm">Senha: <code className="bg-muted px-1 py-0.5 rounded">proximos</code></p>
+            </div>
+            <div className="flex items-start p-3 bg-blue-50 border border-blue-200 rounded-md">
+              <Info className="h-5 w-5 text-blue-600 mr-2 mt-0.5 flex-shrink-0" />
+              <p className="text-xs text-blue-700">
+                As credenciais de demonstração fornecem acesso a um conjunto limitado de dados para teste. Para acesso completo e integrado, entre em contato com a ConLine.
+              </p>
             </div>
             <div>
               <h3 className="font-semibold mb-1">Exemplo de Requisição (cURL):</h3>

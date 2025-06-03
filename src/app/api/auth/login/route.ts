@@ -20,10 +20,10 @@ import 'dotenv/config';
  *             properties:
  *               username:
  *                 type: string
- *                 example: PowerTrade
+ *                 example: sirius
  *               password:
  *                 type: string
- *                 example: minhasenha
+ *                 example: proximos
  *     responses:
  *       200:
  *         description: Autenticação bem-sucedida, token retornado
@@ -54,7 +54,7 @@ export async function POST(req: NextRequest) {
 
     // Em uma aplicação real, valide as credenciais contra um banco de dados.
     // Para esta demonstração, as credenciais são fixas.
-    if (username === 'PowerTrade' && password === 'minhasenha') {
+    if (username === 'sirius' && password === 'proximos') {
       // Para fins de demonstração, o clientId é fixo. Em uma aplicação real, obtenha do registro do usuário.
       const clientId = 49043; 
       const userPayload = { user: username, clientId: clientId };
