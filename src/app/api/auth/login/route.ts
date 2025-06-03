@@ -7,6 +7,7 @@ import 'dotenv/config';
 // Em uma aplicação real, estes dados viriam de um banco de dados.
 const demoUsers = [
   { username: 'sirius', password: 'proximos', clientId: 49043, name: 'Sirius Principal' },
+  { username: 'powertrade', password: 'minhapower@2025', clientId: 49043, name: 'Power Trade' },
   // Adicione mais usuários de demonstração aqui, se necessário:
   // { username: 'outro_usuario', password: 'outra_senha', clientId: 12345, name: 'Outro Cliente' },
 ];
