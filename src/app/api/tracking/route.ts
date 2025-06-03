@@ -21,7 +21,7 @@ import 'dotenv/config';
  *         description: Número de referência opcional (Numero_Processo ou Referencia_Cliente) para filtrar um processo específico. Se não fornecido, retorna todos os eventos de tracking para o cliente.
  *     responses:
  *       200:
- *         description: Dados de rastreamento recuperados com sucesso. A estrutura da resposta varia; se 'referencia' for fornecida, retorna um objeto {process, follow}. Caso contrário, retorna um array de todos os eventos de tracking (TrackingItem).
+ *         description: Dados de rastreamento recuperados com sucesso. A estrutura da resposta varia; se 'referencia' for fornecida, retorna um objeto {process, follow}. Caso contrário, retorna um array de objetos, onde cada objeto combina informações do processo com um evento de follow-up.
  *         content:
  *           application/json:
  *             schema:
@@ -29,7 +29,25 @@ import 'dotenv/config';
  *                 - $ref: '#/components/schemas/TrackingResponseByReferencia'
  *                 - type: array
  *                   items:
- *                     $ref: '#/components/schemas/TrackingItem'
+ *                     type: object
+ *                     description: Combina informações do processo com um evento de follow-up.
+ *                     allOf:
+ *                       - $ref: '#/components/schemas/ProcessInfo'
+ *                       - type: object
+ *                         properties:
+ *                           Data:
+ *                             type: string
+ *                             format: date-time
+ *                             description: Timestamp do evento de rastreamento (data e hora UTC).
+ *                             example: "2022-05-06T17:42:00.000Z"
+ *                           DataConvertido:
+ *                             type: string
+ *                             description: Data e hora do evento formatada (geralmente dd/MM/yyyy HH:mm:ss).
+ *                             example: "06/05/2022 17:42:00"
+ *                           Descricao:
+ *                             type: string
+ *                             description: Descrição detalhada do evento de rastreamento.
+ *                             example: "Agradecemos pelo fechamento! ..."
  *       401:
  *         description: Token de autenticação ausente ou inválido
  *         content:

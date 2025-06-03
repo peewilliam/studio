@@ -72,27 +72,6 @@
  *             $ref: '#/components/schemas/FollowUpItem'
  *           description: Lista de eventos de acompanhamento para o processo.
  *
- *     TrackingItem:
- *       type: object
- *       description: Representa um item individual de rastreamento de processo (um evento de follow-up completo, incluindo dados do processo repetidos). Usado quando nenhuma referência específica é fornecida, retornando uma lista de todos os eventos.
- *       allOf: # Combina ProcessInfo com os campos de evento
- *         - $ref: '#/components/schemas/ProcessInfo'
- *         - type: object
- *           properties:
- *             Data: # Data do evento de follow-up
- *               type: string
- *               format: date-time
- *               description: Timestamp do evento de rastreamento (data e hora UTC).
- *               example: "2022-05-06T17:42:00.000Z"
- *             DataConvertido: # DataConvertido do evento de follow-up
- *               type: string
- *               description: Data e hora do evento formatada (geralmente dd/MM/yyyy HH:mm:ss).
- *               example: "06/05/2022 17:42:00"
- *             Descricao: # Descricao do evento de follow-up
- *               type: string
- *               description: Descrição detalhada do evento de rastreamento.
- *               example: "Agradecemos pelo fechamento! ..."
- *
  *     ErrorResponse:
  *       type: object
  *       description: Estrutura padrão para respostas de erro da API.
