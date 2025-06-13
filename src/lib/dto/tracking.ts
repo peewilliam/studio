@@ -1,90 +1,86 @@
-
 /**
  * @swagger
  * components:
  *   schemas:
+ *     ErrorResponse:
+ *       type: object
+ *       properties:
+ *         message:
+ *           type: string
+ *           description: 'Mensagem de erro'
+ *         error:
+ *           type: string
+ *           description: 'Descrição técnica opcional do erro'
+ *       required:
+ *         - message
+ *       example:
+ *         message: "Credenciais inválidas"
+ *         error: "Falha na autenticação do usuário"
+ * 
  *     ProcessInfo:
  *       type: object
- *       description: Informações detalhadas de um processo de comex.
+ *       description: Informações básicas sobre um processo de comex.
  *       properties:
  *         IdCliente:
  *           type: integer
- *           description: Identificador único do cliente principal associado ao processo.
- *           example: 49491
+ *           description: ID do cliente principal do processo.
  *         Cliente:
  *           type: string
- *           description: Nome do cliente.
- *           example: "RIO FASHION BOLSAS LTDA"
+ *           description: Nome do cliente principal.
  *         Numero_Processo:
  *           type: string
- *           description: Número de identificação único do processo.
- *           example: "IM0923-22"
+ *           description: Identificador único do processo no sistema Sirius.
  *         Data_Abertura_Processo:
  *           type: string
  *           format: date-time
- *           description: Data e hora da abertura do processo.
- *           example: "2022-05-06T14:09:00.000Z"
+ *           description: Data e hora de abertura do processo.
  *         IdImportador:
  *           type: integer
  *           nullable: true
- *           description: Identificador único do importador, se aplicável.
- *           example: 49043
+ *           description: ID do importador, se aplicável.
  *         IdExportador:
  *           type: integer
  *           nullable: true
- *           description: Identificador único do exportador, se aplicável.
- *           example: 52958
+ *           description: ID do exportador, se aplicável.
  *         Referencia_Cliente:
  *           type: string
- *           nullable: true
- *           description: Referência fornecida pelo cliente para este processo.
- *           example: "2351"
+ *           description: Referência fornecida pelo cliente para o processo.
  *
  *     FollowUpItem:
  *       type: object
- *       description: Um evento de acompanhamento (follow-up) de um processo.
+ *       description: Representa um único evento de follow-up de um processo.
  *       properties:
  *         Data:
  *           type: string
  *           format: date-time
  *           description: Timestamp do evento de rastreamento (data e hora UTC).
- *           example: "2022-05-06T17:42:00.000Z"
  *         DataConvertido:
  *           type: string
- *           description: Data e hora do evento formatada (geralmente dd/MM/yyyy HH:mm:ss), conforme fornecido pelo sistema de origem.
- *           example: "06/05/2022 17:42:00"
+ *           description: Data e hora do evento formatada (geralmente dd/MM/yyyy HH:mm:ss).
  *         Descricao:
  *           type: string
  *           description: Descrição detalhada do evento de rastreamento.
- *           example: "Agradecemos pelo fechamento! Informamos que nosso agente foi instruído a contatar o exportador."
  *
  *     TrackingResponseByReferencia:
  *       type: object
- *       description: Resposta do rastreamento quando uma referência de processo específica é fornecida.
+ *       description: Resposta para uma consulta de tracking por referência específica.
  *       properties:
  *         process:
  *           $ref: '#/components/schemas/ProcessInfo'
- *           nullable: true
- *           description: Detalhes do processo consultado. Será nulo se a referência não for encontrada.
  *         follow:
  *           type: array
  *           items:
  *             $ref: '#/components/schemas/FollowUpItem'
- *           description: Lista de eventos de acompanhamento para o processo.
- *
- *     ErrorResponse:
+ * 
+ *     ProcessWithFollows:
  *       type: object
- *       description: Estrutura padrão para respostas de erro da API.
+ *       description: "Representa um processo completo, incluindo suas informações básicas e todos os seus eventos de follow-up."
  *       properties:
- *         message:
- *           type: string
- *           description: Uma mensagem de erro legível por humanos.
- *         error:
- *           type: string
- *           nullable: true
- *           description: Detalhe técnico opcional do erro.
- *       example:
- *         message: "Credenciais inválidas"
- *         error: "Falha na autenticação do usuário"
+ *         process:
+ *           $ref: '#/components/schemas/ProcessInfo'
+ *         follow:
+ *           type: array
+ *           items:
+ *             $ref: '#/components/schemas/FollowUpItem'
  */
 export {}; // Este arquivo é primariamente para definições de tipo JSDoc para Swagger

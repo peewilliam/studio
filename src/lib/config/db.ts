@@ -1,5 +1,4 @@
 import sql from 'mssql';
-import 'dotenv/config'; // Ensure .env variables are loaded
 
 const config: sql.config = {
   user: process.env.DB_USER,
@@ -15,9 +14,9 @@ const config: sql.config = {
   },
   pool: {
     max: 10, // Max number of connections in the pool
-    min: 0,  // Min number of connections in the pool
-    idleTimeoutMillis: 30000 // How long a connection is idle before being released
-  }
+    min: 0, // Min number of connections in the pool
+    idleTimeoutMillis: 30000, // How long a connection is idle before being released
+  },
 };
 
 let poolPromise: Promise<sql.ConnectionPool>;
@@ -26,11 +25,11 @@ const getConnectionPool = (): Promise<sql.ConnectionPool> => {
   if (!poolPromise) {
     poolPromise = new sql.ConnectionPool(config)
       .connect()
-      .then(pool => {
+      .then((pool) => {
         console.log('✅ SQL Server conectado');
         return pool;
       })
-      .catch(err => {
+      .catch((err) => {
         console.error('❌ Conexão com SQL Server falhou', err);
         // Exit the process or handle reconnection strategy if necessary
         // For now, we'll rethrow to prevent the app from starting with a bad DB connection.
@@ -38,7 +37,7 @@ const getConnectionPool = (): Promise<sql.ConnectionPool> => {
         // For this setup, let's allow the app to start and log the error.
         // The promise will be rejected, and subsequent attempts to get a connection will fail until it's resolved.
         // Consider a retry mechanism or health check endpoint.
-        return Promise.reject(err); 
+        return Promise.reject(err);
       });
   }
   return poolPromise;
@@ -46,6 +45,5 @@ const getConnectionPool = (): Promise<sql.ConnectionPool> => {
 
 // Immediately try to connect on module load
 getConnectionPool();
-
 
 export { sql, getConnectionPool };

@@ -1,13 +1,21 @@
-
 import { NextRequest, NextResponse } from 'next/server';
 import jwt from 'jsonwebtoken';
-import 'dotenv/config';
 
 // Array de usuários de demonstração
 // Em uma aplicação real, estes dados viriam de um banco de dados.
 const demoUsers = [
-  { username: 'sirius', password: 'proximos', clientId: 48277, name: 'Sirius Principal' },
-  { username: 'powertrade', password: 'minhapower@2025', clientId: 49043, name: 'Power Trade' },
+  {
+    username: 'sirius',
+    password: 'proximos',
+    clientId: 48277,
+    name: 'Sirius Principal',
+  },
+  {
+    username: 'powertrade',
+    password: 'minhapower@2025',
+    clientId: 49043,
+    name: 'Power Trade',
+  },
   // Adicione mais usuários de demonstração aqui, se necessário:
   // { username: 'outro_usuario', password: 'outra_senha', clientId: 12345, name: 'Outro Cliente' },
 ];
@@ -67,16 +75,29 @@ export async function POST(req: NextRequest) {
     );
 
     if (foundUser) {
-      const userPayload = { user: foundUser.username, clientId: foundUser.clientId, name: foundUser.name };
-      
-      const token = jwt.sign(userPayload, process.env.JWT_SECRET!, { expiresIn: '8h' });
+      const userPayload = {
+        user: foundUser.username,
+        clientId: foundUser.clientId,
+        name: foundUser.name,
+      };
+
+      const token = jwt.sign(userPayload, process.env.JWT_SECRET!, {
+        expiresIn: '8h',
+      });
       return NextResponse.json({ token });
     } else {
-      return NextResponse.json({ message: 'Credenciais inválidas' }, { status: 401 });
+      return NextResponse.json(
+        { message: 'Credenciais inválidas' },
+        { status: 401 }
+      );
     }
   } catch (error) {
     console.error('Erro no login:', error);
-    const errorMessage = error instanceof Error ? error.message : 'Ocorreu um erro inesperado';
-    return NextResponse.json({ message: 'Erro no servidor', error: errorMessage }, { status: 500 });
+    const errorMessage =
+      error instanceof Error ? error.message : 'Ocorreu um erro inesperado';
+    return NextResponse.json(
+      { message: 'Erro no servidor', error: errorMessage },
+      { status: 500 }
+    );
   }
 }

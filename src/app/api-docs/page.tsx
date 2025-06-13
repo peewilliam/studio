@@ -1,10 +1,22 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
-import SwaggerUI from 'swagger-ui-react';
+import dynamic from 'next/dynamic';
 import 'swagger-ui-react/swagger-ui.css';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Skeleton } from '@/components/ui/skeleton';
+
+const SwaggerUI = dynamic(() => import('swagger-ui-react'), {
+  ssr: false,
+  loading: () => (
+    <div>
+      <Skeleton className="h-12 w-1/2 mb-4" />
+      <Skeleton className="h-8 w-full mb-2" />
+      <Skeleton className="h-8 w-full mb-2" />
+      <Skeleton className="h-8 w-3/4 mb-2" />
+    </div>
+  ),
+});
 
 const ApiDocsPage = () => {
   const [specUrl, setSpecUrl] = useState<string | null>(null);
@@ -18,19 +30,12 @@ const ApiDocsPage = () => {
     <div className="container mx-auto py-8 px-4 min-h-screen">
       <Card className="shadow-xl">
         <CardHeader>
-          <CardTitle className="text-3xl font-headline text-primary">Documentação da API ConLine - Sirius</CardTitle>
+          <CardTitle className="text-3xl font-headline text-primary">
+            Documentação da API ConLine - Sirius
+          </CardTitle>
         </CardHeader>
         <CardContent>
-          {specUrl ? (
-            <SwaggerUI url={specUrl} />
-          ) : (
-            <div>
-              <Skeleton className="h-12 w-1/2 mb-4" />
-              <Skeleton className="h-8 w-full mb-2" />
-              <Skeleton className="h-8 w-full mb-2" />
-              <Skeleton className="h-8 w-3/4 mb-2" />
-            </div>
-          )}
+          {specUrl ? <SwaggerUI url={specUrl} /> : <SwaggerUI />}
         </CardContent>
       </Card>
     </div>

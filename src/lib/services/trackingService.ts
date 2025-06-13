@@ -1,8 +1,14 @@
-
 import { getConnectionPool, sql } from '../config/db';
 
 interface TrackingParams {
   referencia?: string;
+}
+
+// Interface para os novos parâmetros de filtro
+interface ProcessesParams {
+  referencia?: string;
+  data_processo_de?: string;
+  data_processo_ate?: string;
 }
 
 // Interface para o formato de cada linha retornada pela view/query
@@ -40,6 +46,12 @@ interface FollowUpItem {
 
 interface TrackingResponseByReferencia {
   process: ProcessInfo | null;
+  follow: FollowUpItem[];
+}
+
+// Interface para a nova resposta, um processo com seus follows
+interface ProcessWithFollows {
+  process: ProcessInfo;
   follow: FollowUpItem[];
 }
 
@@ -86,7 +98,7 @@ export async function getTracking(
         // Ex: IdProcesso: firstRecord.IdProcesso, (se existir)
       };
 
-      const followItems: FollowUpItem[] = recordset.map(record => ({
+      const followItems: FollowUpItem[] = recordset.map((record) => ({
         Data: record.Data,
         DataConvertido: record.DataConvertido,
         Descricao: record.Descricao,
@@ -99,11 +111,94 @@ export async function getTracking(
       return recordset;
     }
   } catch (error) {
-    console.error("Erro SQL em getTracking:", error);
+    console.error('Erro SQL em getTracking:', error);
     // Lançar um erro mais específico ou formatado se necessário
     if (error instanceof Error) {
-        throw new Error(`Falha ao recuperar dados de rastreamento: ${error.message}`);
+      throw new Error(
+        `Falha ao recuperar dados de rastreamento: ${error.message}`
+      );
     }
-    throw new Error("Falha ao recuperar dados de rastreamento do banco de dados.");
+    throw new Error(
+      'Falha ao recuperar dados de rastreamento do banco de dados.'
+    );
+  }
+}
+
+export async function getProcesses(
+  params: ProcessesParams,
+  clientId: number
+): Promise<ProcessWithFollows[]> {
+  const pool = await getConnectionPool();
+  const request = pool.request();
+  let query = `
+    SELECT * 
+    FROM vis_Tracking_Portal_Follow_API
+    WHERE (IdCliente = @clientId OR IdImportador = @clientId OR IdExportador = @clientId)
+  `;
+
+  request.input('clientId', sql.Int, clientId);
+
+  if (params.referencia) {
+    query += ` AND (Numero_Processo = @referencia OR Referencia_Cliente = @referencia)`;
+    request.input('referencia', sql.NVarChar, params.referencia);
+  }
+
+  if (params.data_processo_de) {
+    query += ` AND Data_Abertura_Processo >= @data_processo_de`;
+    request.input('data_processo_de', sql.DateTime, new Date(params.data_processo_de));
+  }
+
+  if (params.data_processo_ate) {
+    query += ` AND Data_Abertura_Processo <= @data_processo_ate`;
+    request.input('data_processo_ate', sql.DateTime, new Date(params.data_processo_ate));
+  }
+
+  query += ` ORDER BY Numero_Processo, Data ASC`; // Ordenar para facilitar o agrupamento
+
+  try {
+    const result = await request.query(query);
+    const recordset: TrackingRecord[] = result.recordset as TrackingRecord[];
+
+    if (recordset.length === 0) {
+      return [];
+    }
+    
+    // Agrupar resultados por processo
+    const processesMap = new Map<string, ProcessWithFollows>();
+
+    recordset.forEach((record) => {
+      const processId = record.Numero_Processo;
+      if (!processesMap.has(processId)) {
+        processesMap.set(processId, {
+          process: {
+            IdCliente: record.IdCliente,
+            Cliente: record.Cliente,
+            Numero_Processo: record.Numero_Processo,
+            Data_Abertura_Processo: record.Data_Abertura_Processo,
+            IdImportador: record.IdImportador,
+            IdExportador: record.IdExportador,
+            Referencia_Cliente: record.Referencia_Cliente,
+          },
+          follow: [],
+        });
+      }
+
+      processesMap.get(processId)!.follow.push({
+        Data: record.Data,
+        DataConvertido: record.DataConvertido,
+        Descricao: record.Descricao,
+      });
+    });
+
+    return Array.from(processesMap.values());
+
+  } catch (error) {
+    console.error('Erro SQL em getProcesses:', error);
+    if (error instanceof Error) {
+      throw new Error(
+        `Falha ao recuperar a lista de processos: ${error.message}`
+      );
+    }
+    throw new Error('Falha ao recuperar a lista de processos do banco de dados.');
   }
 }
