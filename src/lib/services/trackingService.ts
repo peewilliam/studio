@@ -146,6 +146,17 @@ export async function getProcesses(
   if (params.data_processo_de) {
     query += ` AND Data_Abertura_Processo >= @data_processo_de`;
     request.input('data_processo_de', sql.DateTime, new Date(params.data_processo_de));
+  } else if (params.data_processo_ate) {
+    // Se só data_ate for fornecida, não fazemos nada com data_de (comportamento padrão)
+  } else {
+    // Se NENHUMA data de processo for fornecida, filtra pelo ano atual
+    const anoAtual = new Date().getFullYear();
+    const inicioDoAno = new Date(anoAtual, 0, 1); // 1 de Janeiro do ano atual
+    const fimDoAno = new Date(anoAtual, 11, 31, 23, 59, 59, 999); // 31 de Dezembro
+
+    query += ` AND Data_Abertura_Processo BETWEEN @inicioDoAno AND @fimDoAno`;
+    request.input('inicioDoAno', sql.DateTime, inicioDoAno);
+    request.input('fimDoAno', sql.DateTime, fimDoAno);
   }
 
   if (params.data_processo_ate) {
